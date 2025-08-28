@@ -61,7 +61,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Emergency status colors
+				success: 'hsl(var(--success))',
+				warning: 'hsl(var(--warning))',
+				danger: 'hsl(var(--danger))',
+				// Chat specific colors
+				'chat-user-bg': 'hsl(var(--chat-user-bg))',
+				'chat-user-fg': 'hsl(var(--chat-user-fg))',
+				'chat-bot-bg': 'hsl(var(--chat-bot-bg))',
+				'chat-bot-fg': 'hsl(var(--chat-bot-fg))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

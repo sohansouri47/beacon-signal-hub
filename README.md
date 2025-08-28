@@ -1,73 +1,191 @@
-# Welcome to your Lovable project
+# Beacon - Your Signal in Any Crisis
 
-## Project info
+A React frontend microservice for emergency communication, built with modern web technologies and designed for crisis situations.
 
-**URL**: https://lovable.dev/projects/1f261b2d-0648-45ab-9312-4b8cce0753a3
+## Features
 
-## How can I edit this code?
+- **Dark Mode Interface**: Professional dark theme optimized for emergency scenarios
+- **Real-time Chat**: AI-powered emergency communication interface
+- **Voice Recording**: MediaRecorder API integration for audio messages
+- **Emergency Status Tracking**: Visual indicators for crisis severity levels
+- **Operator Handoff**: Seamless transition to human operators when needed
+- **Secure Authentication**: Descope SDK integration for user management
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **React 18** with TypeScript
+- **Vite** for fast development and building
+- **React Router** for navigation
+- **TailwindCSS** for styling with custom dark theme
+- **Descope React SDK** for authentication
+- **Lucide React** for icons
+- **shadcn/ui** components (customized for Beacon theme)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/1f261b2d-0648-45ab-9312-4b8cce0753a3) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+ and npm
+- Descope account and project ID
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Clone and install dependencies:**
+   ```bash
+   git clone <your-repo-url>
+   cd beacon-frontend
+   npm install
+   ```
 
-Follow these steps:
+2. **Environment setup:**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Edit `.env` with your configuration:
+   ```env
+   VITE_DESCOPE_PROJECT_ID=your-descope-project-id
+   VITE_API_BASE_URL=http://localhost:3001
+   VITE_APP_BASE_URL=http://localhost:8080
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. **Start development server:**
+   ```bash
+   npm run dev
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Descope Setup
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. Sign up at [Descope](https://www.descope.com/)
+2. Create a new project
+3. Copy your Project ID to the `.env` file
+4. Configure sign-in and sign-up flows in the Descope console
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components (customized)
+│   ├── Logo.tsx        # Beacon logo component
+│   ├── ChatMessage.tsx # Chat message bubbles
+│   ├── StatusBadge.tsx # Emergency status indicators
+│   └── ActionCard.tsx  # Emergency action cards
+├── pages/              # Main application pages
+│   ├── Splash.tsx      # Initial loading screen
+│   ├── Login.tsx       # Authentication (Descope)
+│   ├── Signup.tsx      # User registration (Descope)
+│   └── Chat.tsx        # Main chat interface
+├── hooks/              # Custom React hooks
+│   └── useAudioRecording.ts # Audio recording logic
+├── config/             # Configuration files
+│   └── api.ts          # API endpoints and mock helpers
+├── lib/                # Utility libraries
+│   ├── utils.ts        # General utilities
+│   └── descope.ts      # Descope configuration
+└── assets/             # Static assets
+    └── logo.png        # Beacon logo
 ```
 
-**Edit a file directly in GitHub**
+## API Integration
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The frontend is designed to work with your backend API. Key integration points:
 
-**Use GitHub Codespaces**
+### Chat API
+```typescript
+// Example chat message endpoint
+POST /api/chat
+{
+  "message": "User message text",
+  "context": "emergency_level",
+  "userId": "user_id"
+}
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Audio Processing
+```typescript
+// Example audio transcription endpoint
+POST /api/audio/transcribe
+Content-Type: multipart/form-data
+Body: audio file (WebM format)
+```
 
-## What technologies are used for this project?
+### Emergency Alerts
+```typescript
+// Example emergency alert endpoint
+POST /api/emergency/alert
+{
+  "level": "high",
+  "location": "user_location",
+  "contacts": ["emergency_contact_ids"]
+}
+```
 
-This project is built with:
+## Customization
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Logo Replacement
+Replace `src/assets/logo.png` with your logo. The component automatically handles responsive sizing.
 
-## How can I deploy this project?
+### Theme Customization
+Edit `src/index.css` and `tailwind.config.ts` to customize:
+- Colors (emergency status colors, brand colors)
+- Glowing effects and animations
+- Typography and spacing
 
-Simply open [Lovable](https://lovable.dev/projects/1f261b2d-0648-45ab-9312-4b8cce0753a3) and click on Share -> Publish.
+### Mock Data
+During development, the app uses mock API responses. Replace mock calls in:
+- `src/config/api.ts` - `mockApiCall` function
+- `src/pages/Chat.tsx` - Replace mock responses with actual API calls
 
-## Can I connect a custom domain to my Lovable project?
+## Emergency Status Levels
 
-Yes, you can!
+- **Low** (Green): Normal operation, basic assistance
+- **Medium** (Amber): Urgent situation requiring attention
+- **High** (Red): Critical emergency, immediate response needed
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Audio Recording
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The app supports browser-based audio recording:
+- Uses MediaRecorder API
+- Records in WebM format
+- Configurable max duration (5 minutes default)
+- Automatic transcription via backend API
+
+## Deployment
+
+1. **Build the application:**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy the `dist` folder** to your hosting platform
+
+3. **Environment variables** for production:
+   - Set `VITE_API_BASE_URL` to your production API
+   - Set `VITE_DESCOPE_PROJECT_ID` to your Descope project
+   - Configure CORS on your backend for the frontend domain
+
+## Security Considerations
+
+- All authentication handled by Descope
+- Audio data transmitted securely to backend
+- Emergency data requires encrypted transmission
+- Consider implementing rate limiting for API calls
+
+## Development Notes
+
+- Dark mode is forced throughout the application
+- All colors use semantic tokens from the design system
+- Components are fully typed with TypeScript
+- Mock API calls ready for backend integration
+
+## Contributing
+
+1. Follow the existing code structure and naming conventions
+2. Update types when adding new features
+3. Test audio recording functionality across browsers
+4. Ensure emergency status changes are properly reflected in UI
+
+## License
+
+[Your License Here]
