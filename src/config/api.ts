@@ -3,7 +3,7 @@
 
 export const API_CONFIG = {
   // Base API URL - replace with your backend URL
-  BASE_URL: process.env.VITE_API_BASE_URL || 'http://localhost:3001',
+  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001',
   
   // Chat endpoints
   CHAT_ENDPOINT: '/api/chat',
@@ -21,14 +21,14 @@ export const API_CONFIG = {
 // Descope Configuration
 export const DESCOPE_CONFIG = {
   // Replace with your Descope Project ID
-  PROJECT_ID: process.env.VITE_DESCOPE_PROJECT_ID || 'your-descope-project-id',
+  PROJECT_ID: import.meta.env.VITE_DESCOPE_PROJECT_ID || 'your-descope-project-id',
   
   // Descope Flow IDs
   SIGN_IN_FLOW_ID: 'sign-in',
   SIGN_UP_FLOW_ID: 'sign-up',
   
   // Redirect URLs
-  BASE_URL: process.env.VITE_APP_BASE_URL || 'http://localhost:8080',
+  BASE_URL: import.meta.env.VITE_APP_BASE_URL || 'http://localhost:8080',
 };
 
 // Audio Recording Configuration
