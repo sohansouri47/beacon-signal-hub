@@ -40,7 +40,7 @@ export const Signup = () => {
                 onClick={() => navigate('/login')}
                 className="text-primary hover:underline font-medium"
               >
-                Sign in here
+                Login
               </button>
             </p>
           </div>

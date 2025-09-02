@@ -6,7 +6,14 @@ import { Card } from '@/components/ui/card';
 export const Login = () => {
   const navigate = useNavigate();
 
-  const handleSuccess = () => {
+   const handleSuccess = (e: any) => {
+    const userInfo = e.detail.user;
+    console.log('Descope login successful. User:', userInfo);
+
+    // Save in localStorage
+    localStorage.setItem('user', JSON.stringify(userInfo));
+    console.log(JSON.stringify(userInfo))
+
     navigate('/chat');
   };
 
@@ -21,7 +28,7 @@ export const Login = () => {
           <Logo size="lg" className="mx-auto" />
           <div>
             <h1 className="text-2xl font-bold text-foreground">Welcome to Beacon</h1>
-            <p className="text-muted-foreground">Sign in to access emergency communication</p>
+            <p className="text-muted-foreground">Login in to access emergency communication</p>
           </div>
         </div>
 
