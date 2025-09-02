@@ -225,7 +225,7 @@ import { VoiceWaveform } from '@/components/VoiceWaveform';
 import { useVoiceChat } from '@/hooks/useVoiceChat';
 import { Send, Mic, MicOff } from 'lucide-react';
 import { v4 as uuidv4 } from "uuid";
-
+import useSessionCheck from '@/hooks/useSessionCheck';
 interface Message {
   id: string;
   text: string;
@@ -234,6 +234,7 @@ interface Message {
 }
 
 export const Chat = () => {
+  const { logout } = useSessionCheck();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -263,7 +264,6 @@ export const Chat = () => {
     }
     }, []);
   const [inputText, setInputText] = useState('');
-  const [emergencyLevel, setEmergencyLevel] = useState<'low' | 'medium' | 'high'>('low');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -329,9 +329,6 @@ export const Chat = () => {
         throw new Error(JSON.stringify(data));
       }
 
-      if (data.emergencyLevel) {
-        setEmergencyLevel(data.emergencyLevel);
-      }
 
       addMessage(data.response, false);
     } catch (error) {
@@ -369,6 +366,12 @@ export const Chat = () => {
             <p className="text-sm text-muted-foreground"></p>
           </div>
         </div>
+          <Button
+                onClick={logout}
+                className='bg-red-800 hover:bg-red-950' 
+              >
+                Logout
+          </Button>
       </header>
 
       {/* Main Content */}
@@ -429,7 +432,7 @@ export const Chat = () => {
               </Button>
               <Button
                 onClick={handleVoiceToggle}
-                variant="secondary"
+                // variant="secondary"
               >
                 <Mic className="h-4 w-4" />
               </Button>
