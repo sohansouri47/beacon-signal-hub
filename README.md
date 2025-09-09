@@ -1,6 +1,7 @@
 # 🔔 Beacon – Frontend Microservice
 
-A **React + TailwindCSS** frontend for emergency communication, designed to work with the Beacon ecosystem. This service is **not containerized** and must be run locally.
+A React + TailwindCSS frontend for emergency communication, designed to work with the Beacon ecosystem. This is a simple microservice with a login, signup and chat interface pages.
+Supports both text and voice communication.
 
 
 
